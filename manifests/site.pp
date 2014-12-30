@@ -88,4 +88,39 @@ node default {
     ensure => link,
     target => $boxen::config::repodir
   }
+
+  # adding iterm as the terminal alternative
+  # see: https://github.com/boxen/puppet-iterm2
+  include iterm2::stable
+  include iterm2::colors::arthur
+  include iterm2::colors::saturn
+  include iterm2::colors::solarized_light
+  include iterm2::colors::solarized_dark
+  include iterm2::colors::zenburn
+
+  # adding sublime text 2 as the plain text editor
+  # see: https://github.com/boxen/puppet-sublime_text
+  include sublime_text::v2
+  sublime_text::v2::package { 'Emmet':
+    source => 'sergeche/emmet-sublime'
+  }
+
+  # install additional web browsers
+  include chrome
+  include firefox
+
+  # install spotify as the easy listening tool
+  include spotify
+
+  # install evernote as my note taking tool
+  include evernote
+
+  # file synching
+  include dropbox
+  include googledrive
+}
+
+class { 'intellij' :
+  edition => 'community',
+  version => '14.0.1'
 }
